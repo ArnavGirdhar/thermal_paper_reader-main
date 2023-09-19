@@ -5,9 +5,9 @@ import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
   const ImageInput(
-      {super.key, required this.onPickImage, required this.deleteImage});
-  final void Function(File image) onPickImage;
-  final void Function(File tempImage) deleteImage;
+      {super.key, required this.onPickImage, required this.currentImage});
+  final File? currentImage;
+  final void Function(File image) onPickImage;  
 
   @override
   State<ImageInput> createState() {
@@ -17,6 +17,12 @@ class ImageInput extends StatefulWidget {
 
 class _ImageInputState extends State<ImageInput> {
   File? takenImage;
+
+  void deleteImage(){
+    setState(() {
+      takenImage = null;
+    });
+  }
 
   void _takePicture() async {
     final imagePicker = ImagePicker();
@@ -50,11 +56,11 @@ class _ImageInputState extends State<ImageInput> {
       ),
     );
 
-    if (takenImage != null) {
+    if (widget.currentImage != null) {
       content = GestureDetector(
         onTap: _takePicture,
         child: Image.file(
-          takenImage!,
+          widget.currentImage!,
           fit: BoxFit.cover,
           width: double.infinity,
           height: double.infinity,

@@ -1,13 +1,8 @@
 import 'dart:io';
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
-import 'package:thermal_paper_reader/screens/history.dart';
-import 'package:thermal_paper_reader/screens/home_page.dart';
 import 'package:thermal_paper_reader/widgets/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
@@ -64,10 +59,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void deletePickerImage(var temp) {
-    temp = null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                       image = file;
                     });
                   },
-                  deleteImage: deletePickerImage,
+                  currentImage: image,
                 ),
                 SizedBox(
                   height: 20,
@@ -129,18 +120,19 @@ class _HomePageState extends State<HomePage> {
                         width: 20,
                       ),
                       SizedBox(
-                          height: 90,
-                          width: 150,
-                          child: ElevatedButton(
-                              onPressed: cropImage,
-                              child: Text(
-                                "CROP",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
-                                    fontSize: 30),
-                              ))),
+                        height: 90,
+                        width: 150,
+                        child: ElevatedButton(
+                          onPressed: cropImage,
+                          child: Text(
+                            "CROP",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.poppins().fontFamily,
+                                fontSize: 30),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 SizedBox(
@@ -150,6 +142,7 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       setState(() {
                         image = null;
+                        scannedText = " ";
                       });
                     },
                     child: Text("Delete")),

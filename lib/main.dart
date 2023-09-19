@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:thermal_paper_reader/screens/home_page.dart';
-import 'package:thermal_paper_reader/widgets/image_picker.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
