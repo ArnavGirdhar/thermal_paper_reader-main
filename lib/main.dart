@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               )),
-      home: const HomePage(title: 'Thermal  Reader'),
+      home: const HomePage(title: 'Thermal Paper Reader'),
     );
   }
 }

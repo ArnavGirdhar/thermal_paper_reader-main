@@ -4,8 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({super.key, required this.onPickImage});
+  const ImageInput(
+      {super.key, required this.onPickImage, required this.deleteImage});
   final void Function(File image) onPickImage;
+  final void Function(File tempImage) deleteImage;
 
   @override
   State<ImageInput> createState() {
