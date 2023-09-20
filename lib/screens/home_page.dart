@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   currentImage: image,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 if (image != null)
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       SizedBox(
@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                         scannedText = " ";
                       });
                     },
-                    child: Text("Delete")),
+                    child: const Text("Delete")),
                 Text(
                   scannedText,
                   style: TextStyle(
