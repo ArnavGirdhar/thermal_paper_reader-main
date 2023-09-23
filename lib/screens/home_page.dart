@@ -138,14 +138,27 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        image = null;
-                        scannedText = " ";
-                      });
-                    },
-                    child: const Text("Delete")),
+                SizedBox(
+                  height: 80,
+                  width: 120,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          image = null;
+                          scannedText = " ";
+                        });
+                      },
+                      child: Text(
+                        "Delete",
+                        style: TextStyle(
+                            fontFamily: GoogleFonts.poppins().fontFamily,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 Text(
                   scannedText,
                   style: TextStyle(
