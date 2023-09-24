@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int index = 0;
   var image = null;
   var scannedText = "(Scanned text will appear here)";
   void getText() async {
@@ -62,17 +63,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-          animationDuration: const Duration(milliseconds: 200),
-          backgroundColor: Colors.white,
-          color: Colors.deepPurple.shade200,
-          onTap: (index) {
-            print(index);
-          },
-          items: const [
-            Icon(Icons.home),
-            Icon(Icons.receipt),
-          ]),
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+          indicatorColor: Colors.deepPurple.shade100,
+        ),
+        child: NavigationBar(
+          selectedIndex: index,
+          onDestinationSelected: (index) => setState(() {
+            this.index = index;
+          }),
+          destinations: [
+            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+            NavigationDestination(icon: Icon(Icons.receipt), label: 'History'),
+          ],
+        ),
+      ),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -84,13 +89,15 @@ class _HomePageState extends State<HomePage> {
           child: Center(
             child: Column(
               children: [
-                ImageInput(
-                  onPickImage: (file) {
-                    setState(() {
-                      image = file;
-                    });
-                  },
-                  currentImage: image,
+                Container(
+                  child: ImageInput(
+                    onPickImage: (file) {
+                      setState(() {
+                        image = file;
+                      });
+                    },
+                    currentImage: image,
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -159,12 +166,14 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 20,
                 ),
-                Text(
-                  scannedText,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 18),
+                Container(
+                  child: Text(
+                    scannedText,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 18),
+                  ),
                 ),
               ],
             ),

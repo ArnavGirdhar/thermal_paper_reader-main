@@ -7,7 +7,7 @@ class ImageInput extends StatefulWidget {
   const ImageInput(
       {super.key, required this.onPickImage, required this.currentImage});
   final File? currentImage;
-  final void Function(File image) onPickImage;  
+  final void Function(File image) onPickImage;
 
   @override
   State<ImageInput> createState() {
@@ -18,7 +18,7 @@ class ImageInput extends StatefulWidget {
 class _ImageInputState extends State<ImageInput> {
   File? takenImage;
 
-  void deleteImage(){
+  void deleteImage() {
     setState(() {
       takenImage = null;
     });
@@ -61,7 +61,7 @@ class _ImageInputState extends State<ImageInput> {
         onTap: _takePicture,
         child: Image.file(
           widget.currentImage!,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
           width: double.infinity,
           height: double.infinity,
         ),
