@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:thermal_paper_reader/screens/home_page.dart';
+import 'package:thermal_paper_reader/screens/nav_bar.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          fontFamily: GoogleFonts.raleway().fontFamily,
+          fontFamily: GoogleFonts.poppins().fontFamily,
           useMaterial3: true,
           textTheme: ThemeData.light().textTheme.copyWith(
                 titleLarge: TextStyle(
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               )),
-      home: const HomePage(title: 'Thermal Paper Reader'),
+      home: NavBar(),
     );
   }
 }

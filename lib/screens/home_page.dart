@@ -3,6 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:thermal_paper_reader/screens/history.dart';
 import 'package:thermal_paper_reader/widgets/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 
@@ -14,6 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final screens = [
+    History(title: "Thermal Paper Reader"),
+  ];
   int index = 0;
   var image = null;
   var scannedText = "(Scanned text will appear here)";
@@ -63,21 +67,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          indicatorColor: Colors.deepPurple.shade100,
-        ),
-        child: NavigationBar(
-          selectedIndex: index,
-          onDestinationSelected: (index) => setState(() {
-            this.index = index;
-          }),
-          destinations: [
-            NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-            NavigationDestination(icon: Icon(Icons.receipt), label: 'History'),
-          ],
-        ),
-      ),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
