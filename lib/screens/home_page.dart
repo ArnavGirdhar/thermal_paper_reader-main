@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
@@ -16,11 +15,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final screens = [
-    History(title: "Thermal Paper Reader"),
+    const History(title: "Thermal Paper Reader"),
   ];
   int index = 0;
   var image = null;
   var scannedText = "(Scanned text will appear here)";
+  var temp = " temp ";
   void getText() async {
     final inputImage = InputImage.fromFile(image);
     final textDetector = GoogleMlKit.vision.textRecognizer();
@@ -28,9 +28,18 @@ class _HomePageState extends State<HomePage> {
     await textDetector.close();
     for (TextBlock block in text.blocks) {
       for (TextLine line in block.lines) {
-        scannedText += line.text + "\n";
+        scannedText += '${line.text}';
       }
     }
+    print(scannedText);
+
+    // int count = 0;
+    // for(int i = 0; i < scannedText.length; i++){
+    //   if(scannedText[i] == ' ') count++;
+    //   if(count%2 == 1) temp += '\n';
+    //   else temp += scannedText[i];
+    // }
+    
     setState(() {});
   }
 
@@ -152,17 +161,15 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold),
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  child: Text(
-                    scannedText,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 18),
-                  ),
+                Text(
+                  temp,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 18),
                 ),
               ],
             ),
