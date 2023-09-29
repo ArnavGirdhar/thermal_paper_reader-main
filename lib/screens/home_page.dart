@@ -20,7 +20,8 @@ class _HomePageState extends State<HomePage> {
   int index = 0;
   var image = null;
   var scannedText = "(Scanned text will appear here)";
-  var temp = " temp ";
+  var finalText = "";
+
   void getText() async {
     final inputImage = InputImage.fromFile(image);
     final textDetector = GoogleMlKit.vision.textRecognizer();
@@ -28,18 +29,16 @@ class _HomePageState extends State<HomePage> {
     await textDetector.close();
     for (TextBlock block in text.blocks) {
       for (TextLine line in block.lines) {
-        scannedText += '${line.text}';
+        scannedText += line.text.replaceAll(" ", "");
       }
     }
-    print(scannedText);
 
-    // int count = 0;
-    // for(int i = 0; i < scannedText.length; i++){
-    //   if(scannedText[i] == ' ') count++;
-    //   if(count%2 == 1) temp += '\n';
-    //   else temp += scannedText[i];
-    // }
-    
+    for(int i = 0; i < scannedText.length; i++){
+        finalText += scannedText[i];
+        if((i-1)%8 == 0) finalText += " ";
+        if((i-7)%8 == 0) finalText += "\n";
+    }
+
     setState(() {});
   }
 
@@ -110,6 +109,7 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             scannedText = "";
+                            finalText = "";
                             getText();
                           },
                           child: Text(
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 Text(
-                  temp,
+                  finalText,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: GoogleFonts.poppins().fontFamily,
