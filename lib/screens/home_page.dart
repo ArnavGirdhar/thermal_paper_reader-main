@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   var image = null;
   var scannedText = "(Scanned text will appear here)";
   var finalText = "";
+  HashMap map = HashMap<int, double>();
 
   void getText() async {
     final inputImage = InputImage.fromFile(image);
@@ -37,6 +39,14 @@ class _HomePageState extends State<HomePage> {
         finalText += scannedText[i];
         if((i-1)%8 == 0) finalText += " ";
         if((i-7)%8 == 0) finalText += "\n";
+    }
+
+    for(var x in finalText.split("\n")){
+      if(x.split(" ").length == 2){
+        int k = int.parse(x.split(" ")[0]);
+        double v = double.parse(x.split(" ")[1]);
+        map[k] = v;
+      }
     }
 
     setState(() {});
