@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:thermal_paper_reader/data/data.dart';
 
 class History extends StatefulWidget {
   const History({super.key, required this.title});

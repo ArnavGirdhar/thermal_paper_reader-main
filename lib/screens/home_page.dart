@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:thermal_paper_reader/data/data.dart';
 import 'package:thermal_paper_reader/screens/history.dart';
 import 'package:thermal_paper_reader/widgets/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   var scannedText = "(Scanned text will appear here)";
   var finalText = "";
   HashMap map = HashMap<int, double>();
+  
 
   void getText() async {
     final inputImage = InputImage.fromFile(image);
@@ -48,6 +50,8 @@ class _HomePageState extends State<HomePage> {
         map[k] = v;
       }
     }
+
+    DBmap = map;
 
     setState(() {});
   }

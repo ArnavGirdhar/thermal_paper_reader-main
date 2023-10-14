@@ -12,8 +12,8 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   int index = 0;
   final screens = [
-    HomePage(title: "Thermal Paper Reader"),
-    History(title: "Thermal Paper Reader"),
+    const HomePage(title: "Thermal Paper Reader"),
+    const History(title: "Thermal Paper Reader"),
   ];
   @override
   Widget build(BuildContext context) {
