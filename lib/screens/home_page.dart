@@ -1,8 +1,9 @@
+import 'dart:collection';
 import 'dart:io';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:thermal_paper_reader/data/data.dart';
 import 'package:thermal_paper_reader/screens/history.dart';
 import 'package:thermal_paper_reader/widgets/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -16,11 +17,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final screens = [
-    History(title: "Thermal Paper Reader"),
+    const History(title: "Thermal Paper Reader"),
   ];
   int index = 0;
   var image = null;
   var scannedText = "(Scanned text will appear here)";
+  var finalText = "";
+  HashMap map = HashMap<int, double>();
+  
+
   void getText() async {
     final inputImage = InputImage.fromFile(image);
     final textDetector = GoogleMlKit.vision.textRecognizer();
@@ -28,9 +33,26 @@ class _HomePageState extends State<HomePage> {
     await textDetector.close();
     for (TextBlock block in text.blocks) {
       for (TextLine line in block.lines) {
-        scannedText += line.text + "\n";
+        scannedText += line.text.replaceAll(" ", "");
       }
     }
+
+    for(int i = 0; i < scannedText.length; i++){
+        finalText += scannedText[i];
+        if((i-1)%8 == 0) finalText += " ";
+        if((i-7)%8 == 0) finalText += "\n";
+    }
+
+    for(var x in finalText.split("\n")){
+      if(x.split(" ").length == 2){
+        int k = int.parse(x.split(" ")[0]);
+        double v = double.parse(x.split(" ")[1]);
+        map[k] = v;
+      }
+    }
+
+    DBmap = map;
+
     setState(() {});
   }
 
@@ -101,6 +123,7 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             scannedText = "";
+                            finalText = "";
                             getText();
                           },
                           child: Text(
@@ -152,17 +175,15 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold),
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  child: Text(
-                    scannedText,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 18),
-                  ),
+                Text(
+                  finalText,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 18),
                 ),
               ],
             ),
